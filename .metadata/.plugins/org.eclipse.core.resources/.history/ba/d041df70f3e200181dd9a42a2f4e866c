@@ -1,0 +1,122 @@
+package com.neosoft.demospofity.service.Library;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neosoft.demospofity.dao.AlbumDao;
+import com.neosoft.demospofity.dao.LibraryDao;
+import com.neosoft.demospofity.entity.Album;
+import com.neosoft.demospofity.entity.Library;
+import com.neosoft.demospofity.entity.bean.AlbumBean;
+import com.neosoft.demospofity.service.helper.AlbumHelper;
+
+@Service
+@Transactional
+public class LibraryServiceImpl implements LibraryService {
+
+	@Autowired
+	private LibraryDao libraryDao;
+	
+	@Autowired
+	private AlbumDao albumDao;
+	
+	@Override
+	public void addAlbumToLibrary(String idAlbumSpotify) {
+		Library library = getLibrary();
+		
+		Album album = new Album();
+		album.setIdAlbumSpotify(idAlbumSpotify);
+		
+		library.getAlbums().add(album);
+		
+		libraryDao.save(library);
+	}
+	
+	@Override
+	public void deleteAlbumFromLibrary(String idAlbumSpotify) {
+		Library library = getLibrary();
+
+		Iterator<Album> iter = library.getAlbums().iterator();
+		while(iter.hasNext()) {
+			Album album = iter.next();
+			if(album.getIdAlbumSpotify().equals(idAlbumSpotify)) {
+				iter.remove();
+			}
+		}
+		
+		libraryDao.save(library);
+	}
+	
+	@Override
+	public List<AlbumBean> getAllAlbumsFromLibrary() {
+		List<AlbumBean> result = new ArrayList<AlbumBean>();
+		Map<String, Boolean> mapFavoris = new HashMap<String, Boolean>();
+		
+		Library library = getLibrary();
+		List<Album> albumsLibrary = library.getAlbums();
+		
+		String[] ids = new String[albumsLibrary.size()];
+		if(albumsLibrary != null && !albumsLibrary.isEmpty()) {
+			int i = 0;
+			for(Album album : albumsLibrary) {
+				ids[i] = album.getIdAlbumSpotify();
+				
+				mapFavoris.put(album.getIdAlbumSpotify(), album.isFavoris());
+				i++;
+			}
+			
+			com.wrapper.spotify.model_objects.specification.Album[] albums = AlbumHelper.getAlbums(ids);
+			
+			for(com.wrapper.spotify.model_objects.specification.Album album : albums) {
+				AlbumBean bean = new AlbumBean();
+				bean.setAlbumType(album.getAlbumType());
+				bean.setArtists(album.getArtists());
+				bean.setId(album.getId());
+				bean.setImages(album.getImages());
+				bean.setInAlbumLibrary(true);
+				bean.setName(album.getName());
+				bean.setType(album.getType());
+				
+				boolean isFavoris = mapFavoris.get(bean.getId());
+				bean.setFavoris(isFavoris);
+				
+				result.add(bean);
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public Library getLibrary() {
+		
+		List<Library> libraries = libraryDao.getAll();
+		if(libraries == null || libraries.isEmpty()) {
+			Library library = new Library();
+			library.setId((long) 0);
+			libraryDao.create(library);
+			
+			return library;
+		}
+		
+		return libraries.get(0);
+	}
+
+	@Override
+	public void addOrRemoveFavoris(String idAlbumSpotify, boolean favoris) {
+		Album album = albumDao.findAlbumByIdSpotify(idAlbumSpotify);
+		if(album != null) {
+			album.setFavoris(!favoris);
+		
+			albumDao.save(album);
+		}
+	}
+}

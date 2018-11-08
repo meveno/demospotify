@@ -1,0 +1,32 @@
+package com.neosoft.demospofity.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neosoft.demospofity.dao.AlbumDao;
+import com.neosoft.demospofity.dao.LibraryDao;
+import com.neosoft.demospofity.dao.TagDao;
+import com.neosoft.demospofity.entity.Tag;
+
+@Service
+@Transactional
+public class AlbumServiceImpl implements AlbumService {
+
+	@Autowired
+	private TagDao tagDao;
+	
+	@Autowired
+	private AlbumDao albumDao;
+	
+	@Override
+	public void addTagToAlbum(String idAlbum, String tagName) {
+		Album album = albumDao.findAlbumByIdSpotify(idAlbum);
+		
+		Tag tag = tagDao.findTagByName(tagName);
+		if(tag == null) {
+			
+		}
+	}
+}

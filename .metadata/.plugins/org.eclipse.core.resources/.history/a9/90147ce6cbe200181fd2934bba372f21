@@ -1,0 +1,14 @@
+package com.neosoft.demospofity.dao;
+
+import java.util.List;
+
+import com.neosoft.demospofity.dao.base.BaseDaoImpl;
+import com.neosoft.demospofity.entity.Library;
+
+public class LibraryDaoImpl extends BaseDaoImpl<Library> implements LibraryDao {
+
+	public LibraryDaoImpl(Class<Library> clazz) {
+		super(clazz);
+	}
+	
+}

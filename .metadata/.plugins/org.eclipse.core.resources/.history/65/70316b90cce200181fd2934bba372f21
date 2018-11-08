@@ -1,0 +1,69 @@
+package com.neosoft.demospofity.entity.bean;
+
+import com.neovisionaries.i18n.CountryCode;
+import com.wrapper.spotify.enums.AlbumType;
+import com.wrapper.spotify.enums.ModelObjectType;
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+import com.wrapper.spotify.model_objects.specification.ExternalUrl;
+import com.wrapper.spotify.model_objects.specification.Image;
+
+public class AlbumBean {
+
+	  private AlbumType albumType;
+	  private ArtistSimplified[] artists;
+	  private String id;
+	  private Image[] images;
+	  private String name;
+	  private ModelObjectType type;
+	  private String uri;
+	  private boolean isInAlbumLibrary;
+	  
+	public AlbumType getAlbumType() {
+		return albumType;
+	}
+	public void setAlbumType(AlbumType albumType) {
+		this.albumType = albumType;
+	}
+	public ArtistSimplified[] getArtists() {
+		return artists;
+	}
+	public void setArtists(ArtistSimplified[] artists) {
+		this.artists = artists;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Image[] getImages() {
+		return images;
+	}
+	public void setImages(Image[] images) {
+		this.images = images;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public ModelObjectType getType() {
+		return type;
+	}
+	public void setType(ModelObjectType type) {
+		this.type = type;
+	}
+	public String getUri() {
+		return uri;
+	}
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	public boolean isAlbumLibrary() {
+		return isAlbumLibrary;
+	}
+	public void setAlbumLibrary(boolean isAlbumLibrary) {
+		this.isAlbumLibrary = isAlbumLibrary;
+	}
+}

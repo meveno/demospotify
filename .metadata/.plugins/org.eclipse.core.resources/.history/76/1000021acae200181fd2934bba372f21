@@ -1,0 +1,19 @@
+package com.neosoft.demospofity.entity.bean;
+
+import com.neovisionaries.i18n.CountryCode;
+import com.wrapper.spotify.enums.AlbumType;
+import com.wrapper.spotify.enums.ModelObjectType;
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+import com.wrapper.spotify.model_objects.specification.ExternalUrl;
+import com.wrapper.spotify.model_objects.specification.Image;
+
+public class AlbumBean {
+
+	  private AlbumType albumType;
+	  private ArtistSimplified[] artists;
+	  private String id;
+	  private Image[] images;
+	  private String name;
+	  private ModelObjectType type;
+	  private String uri;
+}

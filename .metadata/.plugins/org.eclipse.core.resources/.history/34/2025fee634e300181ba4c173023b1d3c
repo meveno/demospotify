@@ -1,0 +1,5 @@
+package com.neosoft.demospofity.service;
+
+public class TagServiceImpl implements TagService {
+
+}

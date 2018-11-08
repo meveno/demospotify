@@ -1,0 +1,21 @@
+package com.neosoft.demospofity.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neosoft.demospofity.dao.LibraryDao;
+
+@Service
+@Transactional
+public class TagServiceImpl implements TagService {
+
+	@Autowired
+	private TagDao tagDao;
+	
+	@Override
+	public void addTagToAlbum(String idAlbum, String tag) {
+		
+	}
+}

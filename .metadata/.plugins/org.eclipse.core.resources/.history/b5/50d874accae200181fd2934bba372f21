@@ -1,0 +1,8 @@
+package com.neosoft.demospofity.service.search;
+
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
+import com.wrapper.spotify.model_objects.specification.Paging;
+
+public interface SearchService {
+	Paging<AlbumSimplified> searchAlbums(String criteria);
+}

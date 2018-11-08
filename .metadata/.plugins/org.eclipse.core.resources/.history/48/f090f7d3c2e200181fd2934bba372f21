@@ -1,0 +1,46 @@
+package com.neosoft.demospofity.dao;
+
+import java.util.List;
+
+import com.neosoft.demospofity.dao.base.BaseDaoImpl;
+import com.neosoft.demospofity.entity.Library;
+
+public class LibraryDaoImpl extends BaseDaoImpl<Library> implements LibraryDao {
+
+	@Override
+	public void create(Library entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Library save(Library entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Library entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Library findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Library> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

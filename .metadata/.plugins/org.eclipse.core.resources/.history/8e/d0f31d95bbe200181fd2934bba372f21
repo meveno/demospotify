@@ -1,0 +1,36 @@
+package com.neosoft.demospofity.web;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.neosoft.demospofity.service.Library.LibraryService;
+import com.neosoft.demospofity.service.search.SearchService;
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
+import com.wrapper.spotify.model_objects.specification.Paging;
+
+@CrossOrigin(origins = "http://localhost:8082")
+@RestController
+@RequestMapping(value="/demospotify/")
+public class LibraryController {
+
+	@Autowired
+	private LibraryService libraryService;
+	
+	@GetMapping(value="/library/add")
+	@ResponseBody
+	public AlbumSimplified[] addLibrary(@PathVariable("idAlbum") String id){
+		Paging<AlbumSimplified> result = searchService.searchAlbums(criteria);
+		AlbumSimplified[] albums = result.getItems();
+		
+		return albums;
+	}
+}

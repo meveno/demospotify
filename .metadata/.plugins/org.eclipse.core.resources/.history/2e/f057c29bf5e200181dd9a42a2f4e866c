@@ -1,0 +1,81 @@
+package com.neosoft.demospofity.entity;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="album")
+public class Album implements Serializable{
+
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 7901048489335996904L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    
+	@Column(name="id_album_spotify")
+	private String idAlbumSpotify;
+	
+	@Column(name="is_favoris")
+	private boolean isFavoris;
+	
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+    @JoinTable(name = "albums_tags",
+            joinColumns = { @JoinColumn(name = "album_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    private Set<Tag> tags = new HashSet<Tag>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getIdAlbumSpotify() {
+		return idAlbumSpotify;
+	}
+
+	public void setIdAlbumSpotify(String idAlbumSpotify) {
+		this.idAlbumSpotify = idAlbumSpotify;
+	}
+
+	public boolean isFavoris() {
+		return isFavoris;
+	}
+
+	public void setFavoris(boolean isFavoris) {
+		this.isFavoris = isFavoris;
+	}
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+}
+    

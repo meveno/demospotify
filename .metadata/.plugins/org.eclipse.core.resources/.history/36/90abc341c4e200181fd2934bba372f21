@@ -1,0 +1,6 @@
+package com.neosoft.demospofity.service.Library;
+
+public interface LibraryService {
+
+	void addAlbumToLibrary(String idAlbumSpotify);
+}

@@ -1,0 +1,42 @@
+package com.neosoft.demospofity.dao;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
+import com.neosoft.demospofity.dao.base.BaseDaoImpl;
+import com.neosoft.demospofity.entity.Album;
+import com.neosoft.demospofity.entity.Library;
+
+@Repository
+@Transactional
+public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
+
+	public AlbumDaoImpl() {
+		super(Album.class);
+	}
+	
+	@Override
+	public Album findAlbumByIdSpotify(String idAlbumSpotify) {
+        StringBuilder queryBuilder = new StringBuilder();
+        
+        queryBuilder.append(" from Album c where c.status in ");
+        queryBuilder.append("(");
+        
+		for(int i=0; i<statusList.size(); i++) {
+			queryBuilder.append(statusList.get(i));
+			
+			if(i < statusList.size() - 1) {
+				queryBuilder.append(",");
+			}
+		}
+		
+        queryBuilder.append(")");
+        
+        Query query = em.createQuery(queryBuilder.toString(), this.clazz);
+        
+		return query.getResultList();
+	}
+}

@@ -1,0 +1,5 @@
+package com.neosoft.demospofity.service.search;
+
+public interface SearchService {
+	void search();
+}

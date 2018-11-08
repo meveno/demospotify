@@ -1,0 +1,5 @@
+package com.neosoft.demospofity.entity;
+
+public class AlbumBean {
+
+}

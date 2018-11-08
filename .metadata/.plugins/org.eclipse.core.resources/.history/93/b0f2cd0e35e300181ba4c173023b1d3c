@@ -1,0 +1,15 @@
+package com.neosoft.demospofity.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
+@Service
+@Transactional
+public class TagServiceImpl implements TagService {
+
+	@Override
+	public void addTagToAlbum(String idAlbum, String tag) {
+		
+	}
+}

@@ -1,0 +1,58 @@
+package com.neosoft.demospofity.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tag")
+public class Tag implements Serializable{
+
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 7901048489335996904L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    
+	@Column(name="id_album_spotify")
+	private String idAlbumSpotify;
+	
+	@Column(name="is_favoris")
+	private boolean isFavoris;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getIdAlbumSpotify() {
+		return idAlbumSpotify;
+	}
+
+	public void setIdAlbumSpotify(String idAlbumSpotify) {
+		this.idAlbumSpotify = idAlbumSpotify;
+	}
+
+	public boolean isFavoris() {
+		return isFavoris;
+	}
+
+	public void setFavoris(boolean isFavoris) {
+		this.isFavoris = isFavoris;
+	}
+}
+    

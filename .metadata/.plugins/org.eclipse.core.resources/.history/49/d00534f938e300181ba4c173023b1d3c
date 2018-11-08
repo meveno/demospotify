@@ -1,0 +1,42 @@
+package com.neosoft.demospofity.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neosoft.demospofity.dao.AlbumDao;
+import com.neosoft.demospofity.dao.TagDao;
+import com.neosoft.demospofity.entity.Album;
+import com.neosoft.demospofity.entity.Tag;
+
+@Service
+@Transactional
+public class AlbumServiceImpl implements AlbumService {
+
+	@Autowired
+	private TagDao tagDao;
+	
+	@Autowired
+	private AlbumDao albumDao;
+	
+	@Override
+	public void addTagToAlbum(String idAlbum, String tagName) {
+		if(tagName != null && !"".equals(tagName)) {
+			// uniformer le nom du tag en miniscule
+			String name = tagName.trim().toLowerCase();
+			
+			Tag tag = tagDao.findTagByName(name);
+			if(tag == null) {
+				tag = new Tag();
+				tag.setName(name);
+			}
+			
+			Album album = albumDao.findAlbumByIdSpotify(idAlbum);
+			// j'ajoutes l'object tag directement dans album sans vérifier le doublon car c'est la collection Set.
+			album.getTags().add(tag);
+			
+			albumDao.save(album);
+		}
+	}
+}

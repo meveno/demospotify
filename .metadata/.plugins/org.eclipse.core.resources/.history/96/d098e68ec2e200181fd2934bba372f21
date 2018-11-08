@@ -1,0 +1,5 @@
+package com.neosoft.demospofity.dao.base;
+
+public class BaseDaoImpl<T> implements BaseDao<T> {
+
+}

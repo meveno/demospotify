@@ -1,0 +1,17 @@
+package com.neosoft.demospofity.service.search;
+
+import org.springframework.stereotype.Service;
+
+import com.neosoft.demospofity.service.helper.SpotifyHelper;
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
+import com.wrapper.spotify.model_objects.specification.Paging;
+
+@Service
+public class SearchServiceImpl implements SearchService {
+
+	@Override
+	public void searchAlbums(String criteria) {
+		Paging<AlbumSimplified> albums = SpotifyHelper.getAlbumSearchItems(criteria);
+	}
+
+}

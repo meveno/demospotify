@@ -1,0 +1,19 @@
+package com.neosoft.demospofity.entity;
+
+@Entity
+@Table(name="library")
+public class Library implements Serializable{
+
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 7901048489335996904L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "album_id")
+    private List<Album> albums = new ArrayList<Album>();
+    

@@ -1,0 +1,7 @@
+package com.neosoft.demospofity.dao;
+
+import com.neosoft.demospofity.dao.base.BaseDao;
+
+public interface LibraryDao extends BaseDao<Commande>{
+
+}

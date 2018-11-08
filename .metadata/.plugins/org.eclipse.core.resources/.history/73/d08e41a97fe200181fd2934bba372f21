@@ -1,0 +1,100 @@
+package com.neosoft.demospofity.service.helper;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.wrapper.spotify.SpotifyApi;
+import com.wrapper.spotify.enums.ModelObjectType;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
+import com.wrapper.spotify.model_objects.special.SearchResult;
+import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import com.wrapper.spotify.requests.data.search.SearchItemRequest;
+
+//import com.google.common.util.concurrent.FutureCallback;
+//import com.google.common.util.concurrent.Futures;
+//import com.google.common.util.concurrent.SettableFuture;
+//import com.wrapper.spotify.Api;
+//import com.wrapper.spotify.methods.AlbumRequest;
+//import com.wrapper.spotify.methods.authentication.ClientCredentialsGrantRequest;
+//import com.wrapper.spotify.models.Album;
+//import com.wrapper.spotify.models.ClientCredentials;
+
+public class SpotifyHelper {
+	private static final String CLIENT_ID = "602a57ca5d0044379dda46992f50396c";
+	private static final String CLIENT_SECRET = "119ff59712b14f9dafaf2eeffd508b40";
+	
+//	public static Api auth() {
+//
+//		final Api api = Api.builder().clientId(CLIENT_ID).clientSecret(CLIENT_SECRET).build();
+//		
+//		final ClientCredentialsGrantRequest request = api.clientCredentialsGrant().build();
+//		final SettableFuture<ClientCredentials> responseFuture = request.getAsync();
+//
+//		Futures.addCallback(responseFuture, new FutureCallback<ClientCredentials>() {
+//		  @Override
+//		  public void onSuccess(ClientCredentials clientCredentials) {
+//		    System.out.println("Reçu un access token! " + clientCredentials.getAccessToken());
+//		    api.setAccessToken(clientCredentials.getAccessToken());
+//		  }
+//		
+//		  @Override
+//		  public void onFailure(Throwable throwable) {
+//
+//		  }
+//		});
+//		
+//		return api;
+//	}
+	
+	public static SpotifyApi auth() {
+		SpotifyApi spotifyApi = new SpotifyApi.Builder().setClientId(CLIENT_ID).setClientSecret(CLIENT_SECRET).build();
+		ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
+		
+		try {
+			ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+			spotifyApi.setAccessToken(clientCredentials.getAccessToken());
+			System.out.println("Reçu un access token! " + clientCredentials.getAccessToken());
+		} catch (SpotifyWebApiException | IOException e) {
+
+		}
+		
+		return spotifyApi;
+	}
+	
+	public static void getSearchItems() {
+		SpotifyApi spotifyApi = auth();
+		
+		SearchItemRequest searchItemRequest = spotifyApi.searchItem("anne", ModelObjectType.ARTIST.getType()).market(CountryCode.SE)
+		          .limit(10)
+		          .offset(0).build();
+		
+		try {
+			SearchResult searchResult = searchItemRequest.execute();
+			 System.out.println("Total tracks: " + searchResult.getTracks().getTotal());
+		} catch (SpotifyWebApiException | IOException e) {
+
+		}
+	}
+//	
+//	public static void getArtist() {
+//		Api api = auth();
+//		
+//		AlbumRequest request = api.getAlbum("7e0ij2fpWaxOEHv5fUYZjd").build();
+//		SettableFuture<Album> albumFuture = request.getAsync();
+//
+//		Futures.addCallback(albumFuture, new FutureCallback<Album>() {
+//
+//		  public void onSuccess(Album album) {
+//		    List<String> genres = album.getGenres(); 
+//		    for (String genre : genres) {
+//		      System.out.println(genre);
+//		    }
+//		  }
+//
+//		  public void onFailure(Throwable thrown) {
+//		    System.out.println("failure");
+//		  }
+//		});
+//	}
+}

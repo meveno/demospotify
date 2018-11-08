@@ -1,0 +1,5 @@
+package com.neosoft.demospofity.dao;
+
+public class LibraryDaoImpl extends BaseDaoImpl<Library> implements LibraryDao {
+
+}

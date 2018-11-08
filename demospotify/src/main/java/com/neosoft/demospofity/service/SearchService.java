@@ -1,0 +1,11 @@
+package com.neosoft.demospofity.service;
+
+import java.util.List;
+
+import com.neosoft.demospofity.entity.bean.AlbumBean;
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
+import com.wrapper.spotify.model_objects.specification.Paging;
+
+public interface SearchService {
+	List<AlbumBean> searchAlbums(String criteria);
+}

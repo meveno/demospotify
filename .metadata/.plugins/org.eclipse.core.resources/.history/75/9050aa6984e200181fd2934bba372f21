@@ -1,0 +1,12 @@
+package com.neosoft.demospofity.web;
+
+
+@Controller
+public class HomeController {
+
+    @RequestMapping
+    public String index() {
+        return "index";
+    }
+}
+

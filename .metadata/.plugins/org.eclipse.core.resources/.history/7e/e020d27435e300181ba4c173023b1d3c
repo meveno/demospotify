@@ -1,0 +1,6 @@
+package com.neosoft.demospofity.service;
+
+public interface TagService {
+
+	void addTagToAlbum(String idAlbum, String tag);
+}

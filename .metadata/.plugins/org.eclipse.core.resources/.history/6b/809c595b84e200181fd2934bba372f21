@@ -1,0 +1,5 @@
+package com.neosoft.demospofity.web;
+
+public class HomeController {
+
+}

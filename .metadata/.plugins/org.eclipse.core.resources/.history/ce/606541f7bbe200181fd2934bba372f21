@@ -1,0 +1,62 @@
+package com.neosoft.demospofity.service.helper;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.neovisionaries.i18n.CountryCode;
+import com.wrapper.spotify.SpotifyApi;
+import com.wrapper.spotify.enums.ModelObjectType;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
+import com.wrapper.spotify.model_objects.special.SearchResult;
+import com.wrapper.spotify.model_objects.specification.Album;
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
+import com.wrapper.spotify.model_objects.specification.Paging;
+import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import com.wrapper.spotify.requests.data.albums.GetAlbumRequest;
+import com.wrapper.spotify.requests.data.search.SearchItemRequest;
+
+//import com.google.common.util.concurrent.FutureCallback;
+//import com.google.common.util.concurrent.Futures;
+//import com.google.common.util.concurrent.SettableFuture;
+//import com.wrapper.spotify.Api;
+//import com.wrapper.spotify.methods.AlbumRequest;
+//import com.wrapper.spotify.methods.authentication.ClientCredentialsGrantRequest;
+//import com.wrapper.spotify.models.Album;
+//import com.wrapper.spotify.models.ClientCredentials;
+
+public class SearchHelper {
+//	private static final String CLIENT_ID = "602a57ca5d0044379dda46992f50396c";
+//	private static final String CLIENT_SECRET = "119ff59712b14f9dafaf2eeffd508b40";
+//	
+//	public static SpotifyApi auth() {
+//		SpotifyApi spotifyApi = new SpotifyApi.Builder().setClientId(CLIENT_ID).setClientSecret(CLIENT_SECRET).build();
+//		ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
+//		
+//		try {
+//			ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+//			spotifyApi.setAccessToken(clientCredentials.getAccessToken());
+//			System.out.println("Reçu un access token! " + clientCredentials.getAccessToken());
+//		} catch (SpotifyWebApiException | IOException e) {
+//
+//		}
+//		
+//		return spotifyApi;
+//	}
+	
+	public static Paging<AlbumSimplified> getAlbumSearchItems(String criteria) {
+		SpotifyApi spotifyApi = auth();
+		
+		SearchItemRequest searchItemRequest = spotifyApi.searchItem(criteria, ModelObjectType.ALBUM.getType()).market(CountryCode.SE).limit(20).offset(0).build();
+		Paging<AlbumSimplified> albums = null;
+		try {
+			 SearchResult searchResult = searchItemRequest.execute();
+			 if(searchResult != null) {
+				 albums = searchResult.getAlbums();
+			 }
+		} catch (SpotifyWebApiException | IOException e) {
+
+		}
+		return albums;		
+	}
+}
